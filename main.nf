@@ -57,6 +57,7 @@ workflow {
     STEP1: Run Artic workflow for nanopore sequencing
     */
     articDownloadScheme()
+    
     articGuppyPlex(ch_fastqDirs.flatten())
     articMinIONMedaka(articGuppyPlex.out.fastq
                                       .filter{ it.countFastq() > params.minReadsArticGuppyPlex }
@@ -81,6 +82,7 @@ workflow {
     collateSamples(qc.pass.map{ it[0] }
                            .join(articMinIONMedaka.out.consensus_fasta, by: 0)
                            .join(articRemoveUnmappedReads.out))
+    
 
     /*
     STEP2: Multiple Sequence Alignment using MAFFT

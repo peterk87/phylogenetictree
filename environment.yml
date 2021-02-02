@@ -10,9 +10,13 @@ dependencies:
 
   ## conda-forge packages
   - conda-forge::r-base
+  ## bioconda packages
   - bioconda::bioconductor-ggtree
+  - bioconda::bioconductor-treeio
   - bioconda::artic=1.2.1
   - bioconda::mafft=7.475
   - bioconda::iqtree=2.0.3
+
+
 
 
