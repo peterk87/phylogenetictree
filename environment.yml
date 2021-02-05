@@ -10,12 +10,30 @@ dependencies:
 
   ## conda-forge packages
   - conda-forge::r-base
+  - conda-forge::r-optparse=1.6.6
+  - conda-forge::r-tidyr=1.1.0
+  - conda-forge::r-tidyverse=1.3.0
+  
   ## bioconda packages
   - bioconda::bioconductor-ggtree
   - bioconda::bioconductor-treeio
   - bioconda::artic=1.2.1
   - bioconda::mafft=7.475
   - bioconda::iqtree=2.0.3
+  - bioconda::newick_utils
+  - pip
+  - pysam
+  - biopython
+  - snakemake
+  - pip:
+    - dendropy>=4.4.0
+    - pyvcf
+    - ncov-parser
+    - git+https://github.com/hCoV-2019/lineages.git
+    - git+https://github.com/hCoV-2019/pangolin.git
+    - git+https://github.com/cov-lineages/pangoLEARN.git
+    - git+https://github.com/cov-ert/datafunk.git
+    - git+https://github.com/jts/ncov-watch.git
 
 
 

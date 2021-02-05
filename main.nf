@@ -17,7 +17,7 @@ include {articDownloadScheme; articGuppyPlex; articMinIONMedaka; articRemoveUnma
 include {makeQCCSV; writeQCSummaryCSV} from './modules/qc'
 include {collateSamples} from './modules/upload'
 include {catConsensusSequences; msaMAFFT} from './modules/msa'
-include {buildPhylogeneticIQTREE; visualizePhylogeneticGGTREE} from './modules/iqtree'
+include {buildPhylogeneticIQTREE; visualizePhylogeneticGGTREE; makeAlleles; rerootPhylogeneticTree; assignLineages} from './modules/iqtree'
 
 
 
@@ -56,6 +56,7 @@ workflow {
     /*
     STEP1: Run Artic workflow for nanopore sequencing
     */
+    
     articDownloadScheme()
     
     articGuppyPlex(ch_fastqDirs.flatten())
@@ -87,8 +88,7 @@ workflow {
     /*
     STEP2: Multiple Sequence Alignment using MAFFT
     */
-
-    catConsensusSequences(collateSamples.out.ch_samples_consensus.collect())
+    catConsensusSequences(collateSamples.out.ch_samples_consensus.collect().combine(articDownloadScheme.out.reffasta))
 
     msaMAFFT(catConsensusSequences.out.ch_catconsensus)
 
@@ -97,12 +97,18 @@ workflow {
     */
 
     buildPhylogeneticIQTREE(msaMAFFT.out.ch_msa_mafft)
+
+    rerootPhylogeneticTree(buildPhylogeneticIQTREE.out.ch_iqtree_newick, articDownloadScheme.out.reffasta)
+
+    makeAlleles(msaMAFFT.out.ch_msa_mafft)
+
+    assignLineages(catConsensusSequences.out.ch_catconsensus)
     
     /*
     STEP4: Visualization using bioconductor-ggtree 
     */
 
-    visualizePhylogeneticGGTREE()
+    visualizePhylogeneticGGTREE(rerootPhylogeneticTree.out.ch_reroot_iqtree, assignLineages.out.ch_lineage_report, makeAlleles.out.ch_alleles)
 
     }
 
