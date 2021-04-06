@@ -5,6 +5,7 @@ channels:
   - conda-forge
   - bioconda
   - defaults
+  - smirarab
 dependencies:
 
 
@@ -25,6 +26,26 @@ dependencies:
   - pysam
   - biopython
   - snakemake
+  - bc
+  - bcftools
+  - easel
+  - parallel
+  - seqmagick
+  - treeshrink
+  - ucsc-faFilter
+  - ucsc-faSomeRecords
+  - ucsc-faSplit
+  - fasttree
+  - goalign
+  - gotree
+  - bc
+  - bcftools
+  - biopython>=1.76
+  - easel
+  - raxml-ng
+  - r-ggplot2
+  - r-phangorn
+  - r-readr
   - pip:
     - dendropy>=4.4.0
     - pyvcf

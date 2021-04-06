@@ -7,31 +7,7 @@ import argparse
 
 
 def merge_consensus(args):
-    
-    completeness_threshold = float(args.completeness)  
-
-    for fn in args.consensusfiles:
-
-        with pysam.FastxFile(fn) as fa:
-            for record in fa:
-                # shrink the long name ivar uses
-                #record.name = record.name.replace(".primertrimmed.consensus_threshold_0.75_quality_20", "")
-
-                # require >75% completeness (non-N)
-                
-                base_counter = collections.Counter()
-                for b in record.sequence:
-                    base_counter.update(b.upper())
-
-                total = 0
-                for base, count in base_counter.items():
-                    total += count
-                completeness = 0
-                if total > 0:
-                    completeness = 1 - (float(base_counter['N']) / total)
-                if completeness >= completeness_threshold:
-                    sys.stdout.write(">" + record.name + "\n")
-                    sys.stdout.write(record.sequence + "\n")
+    print (args.global_lineage_report)
             
 
     
@@ -39,9 +15,9 @@ def main():
     
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--consensusfiles', required=True)
-    parser.add_argument('-c', '--completeness', default=0.75,
-                    help='the minimum completeness threshold (default: 0.75)')
+    parser.add_argument('-g','--global_lineage_report', required=True, help='Lineage report of global samples from GISIAD')
+    parser.add_argument('-c', '--samples_lineage_report', required=True, help='Lineage report of samples')
+    parser.add_argument('-o', '--samples_lineage_report', required=True, help='Lineage report of samples')
 
     if len(sys.argv) < 2:
         parser.print_help(sys.stderr)
