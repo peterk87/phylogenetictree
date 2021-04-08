@@ -14,7 +14,7 @@ process buildPhylogeneticIQTREE {
 
     script:
     """
-    iqtree -s ${msa_mafft} -m GTR
+    iqtree -s ${msa_mafft} -m ${params.substitution_model}
     """
 }
 
@@ -71,7 +71,7 @@ process makeAlleles {
 
     script:
     """
-    align2alleles.py --reference-name MN908947.3 ${msa_mafft} > alleles.tsv
+    align2alleles.py --reference-name ${params.reference_name} ${msa_mafft} > alleles.tsv
     """
 }
 
