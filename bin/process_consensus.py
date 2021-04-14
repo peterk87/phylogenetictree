@@ -9,6 +9,10 @@ from Bio import SeqIO
 from os import listdir
 from os.path import isfile, join, basename, abspath, isdir
 
+from pathlib import Path, PurePath
+#from pathlib.Path import is_file, resolve
+#from pathlib.PurePath import joinpath, name
+
 
 def find_matched_files(input_paths,pattern,file_format='fasta',path_sep=',',folder_ignored=None):
 
@@ -38,7 +42,7 @@ def find_matched_files(input_paths,pattern,file_format='fasta',path_sep=',',fold
 def merge_consensus(args):
     
     matched_files = find_matched_files(args.consensus_path, args.identifier, file_format='', folder_ignored=['files'])
-    matched_files.append(args.reference_fasta)
+    #matched_files.append(args.reference_fasta)
 
     completeness_threshold = float(args.completeness)
     with open (args.merge_consensus_sequence, 'w') as out_file:

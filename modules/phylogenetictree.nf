@@ -13,7 +13,7 @@ process BUILDPHYLOGENETIC_IQTREE {
 
     script:
     """
-    iqtree -s ${msa_mafft} -m ${params.substitution_model}
+    iqtree -s ${msa_mafft} -m ${params.substitution_model} -o ${params.reference_name}
     """
 }
 

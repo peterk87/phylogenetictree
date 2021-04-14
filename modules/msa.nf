@@ -25,6 +25,10 @@ process MSA_MAFFT {
 
     script:
     """
-    mafft --ep --localpair  --maxiterate 16 --reorder ${cat_consensus_seqeuences} > "msa.aln"
+    mafft \\
+        --thread ${task.cpus} \\
+        --6merpair \\
+        --addfragments ${cat_consensus_seqeuences} \\
+        ${params.reference_fasta} > msa.aln
     """
 }
