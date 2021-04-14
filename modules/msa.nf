@@ -1,23 +1,17 @@
-process catConsensusSequences {
+process MERGE_CONSENSUS_SEQUENCES {
 
     tag { params.prefix }
 
-    input:
-    path (samples_consensus)
-
     output:
-    path "*.fasta", emit: ch_catconsensus
+    path "*.fasta", emit: ch_mergeconsensus
     
     script:
     """
-    for files in ${samples_consensus}
-    do 
-        cat \$files >> mergeConsensusSequences.fasta
-    done
+    process_consensus.py --identifier ${params.consensus_identifier} --consensus_path ${params.consensus_path} --reference_fasta ${params.reference_fasta} --merge_consensus_sequence merge_consensus_sequence.fasta
     """
 }
 
-process msaMAFFT {
+process MSA_MAFFT {
     
     tag { params.prefix }
 
@@ -34,7 +28,3 @@ process msaMAFFT {
     mafft --ep --localpair  --maxiterate 16 --reorder ${cat_consensus_seqeuences} > "msa.aln"
     """
 }
-
-
-
-

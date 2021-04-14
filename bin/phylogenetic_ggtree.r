@@ -2,9 +2,6 @@
 
 #
 # Plot a phylogenetic tree with associated mutations
-#
-
-#
 # this method of aligning the tree and tiles is from:
 # https://thackl.github.io/ggtree-composite-plots
 #

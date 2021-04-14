@@ -20,7 +20,7 @@ dependencies:
   - bioconda::bioconductor-treeio
   - bioconda::artic=1.2.1
   - bioconda::mafft=7.475
-  - bioconda::iqtree=2.0.3
+  - bioconda::iqtree=2.1.2
   - bioconda::newick_utils
   - pip
   - pysam
@@ -41,6 +41,7 @@ dependencies:
   - bc
   - bcftools
   - biopython>=1.76
+  - gofasta
   - easel
   - raxml-ng
   - r-ggplot2

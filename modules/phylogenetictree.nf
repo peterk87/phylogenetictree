@@ -1,5 +1,4 @@
-
-process buildPhylogeneticIQTREE {
+process BUILDPHYLOGENETIC_IQTREE {
     
     tag { params.prefix }
 
@@ -18,7 +17,8 @@ process buildPhylogeneticIQTREE {
     """
 }
 
-process assignLineages {
+
+process ASSIGNLINEAGES {
     
     tag { params.prefix }
 
@@ -37,7 +37,7 @@ process assignLineages {
     """
 }
 
-process rerootPhylogeneticTree {
+process REROOT_PHYLOGENETICTREE {
     
     tag { params.prefix }
 
@@ -45,19 +45,18 @@ process rerootPhylogeneticTree {
 
     input:
     file(tree_newick)
-    file(ref_fasta)
+
 
     output:
     path "*.nwk", emit: ch_reroot_iqtree
 
     script:
     """
-    nw_reroot ${tree_newick} `head -1 ${ref_fasta} | tr -d \">\"` > reroot_phylogenetic_tree.nwk
+    nw_reroot ${tree_newick} `head -1 ${params.reference_fasta} | tr -d \">\"` > reroot_phylogenetic_tree.nwk
     """
 }
 
-
-process makeAlleles {
+process MAKEALLELES {
     
     tag { params.prefix }
 
@@ -75,9 +74,7 @@ process makeAlleles {
     """
 }
 
-
-
-process visualizePhylogeneticGGTREE {
+process VISUALLIZE_PHYLOGENTICTREE {
 
     tag { params.prefix }
 
@@ -96,3 +93,4 @@ process visualizePhylogeneticGGTREE {
     phylogenetic_ggtree.r -n ${newick_tree} -l ${lineage_report} -a ${alleles_info}
     """
 }
+
