@@ -74,7 +74,7 @@ process MAKEALLELES {
     """
 }
 
-process VISUALLIZE_PHYLOGENTICTREE {
+process VISUALIZE_PHYLOGENTICTREE {
 
     tag { params.prefix }
 
@@ -93,4 +93,24 @@ process VISUALLIZE_PHYLOGENTICTREE {
     phylogenetic_ggtree.r -n ${newick_tree} -l ${lineage_report} -a ${alleles_info}
     """
 }
+
+process VISUALIZE_SHIPTV_PHYLOGENTICTREE {
+
+    tag { params.prefix }
+
+    publishDir "${params.outdir}/${task.process.replaceAll(":","_")}"
+
+    input:
+    file(newick_tree)
+
+    output:
+    path "*.html", emit: ch_shiptv_html_visualization
+    path "*.tsv", emit: ch_shiptv_metadata
+
+    script:
+    """
+    shiptv -n ${newick_tree} -o shiptv_phylogenetic_tree.html -m shiptv_metadata.tsv
+    """
+}
+
 

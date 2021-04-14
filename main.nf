@@ -87,7 +87,7 @@ Channel.from(summary.collect{ [it.key, it.value] })
     """.stripIndent() }
     .set { ch_workflow_summary }
 include {MERGE_CONSENSUS_SEQUENCES; MSA_MAFFT} from './modules/msa'
-include {BUILDPHYLOGENETIC_IQTREE; ASSIGNLINEAGES; REROOT_PHYLOGENETICTREE; MAKEALLELES; VISUALLIZE_PHYLOGENTICTREE} from './modules/phylogenetictree'
+include {BUILDPHYLOGENETIC_IQTREE; ASSIGNLINEAGES; REROOT_PHYLOGENETICTREE; MAKEALLELES; VISUALIZE_PHYLOGENTICTREE; VISUALIZE_SHIPTV_PHYLOGENTICTREE} from './modules/phylogenetictree'
 
 
 workflow {
@@ -104,7 +104,10 @@ workflow {
 
     ASSIGNLINEAGES(MERGE_CONSENSUS_SEQUENCES.out.ch_mergeconsensus)
 
-    VISUALLIZE_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree, ASSIGNLINEAGES.out.ch_lineage_report, MAKEALLELES.out.ch_alleles)
+    VISUALIZE_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree, ASSIGNLINEAGES.out.ch_lineage_report, MAKEALLELES.out.ch_alleles)
+
+    VISUALIZE_SHIPTV_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree)
+
 }
 
 
