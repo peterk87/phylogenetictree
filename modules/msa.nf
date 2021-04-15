@@ -1,3 +1,4 @@
+/*
 process MERGE_CONSENSUS_SEQUENCES {
 
     tag { params.prefix }
@@ -13,7 +14,7 @@ process MERGE_CONSENSUS_SEQUENCES {
                          --output merge_consensus_sequence.fasta
     """
 }
-
+*/
 process MSA_MAFFT {
     
     tag { params.prefix }

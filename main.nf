@@ -86,15 +86,20 @@ Channel.from(summary.collect{ [it.key, it.value] })
         </dl>
     """.stripIndent() }
     .set { ch_workflow_summary }
-include {MERGE_CONSENSUS_SEQUENCES; MSA_MAFFT} from './modules/msa'
+include {MSA_MAFFT} from './modules/msa'
 include {BUILDPHYLOGENETIC_IQTREE; ASSIGNLINEAGES; REROOT_PHYLOGENETICTREE; MAKEALLELES; VISUALIZE_PHYLOGENTICTREE; VISUALIZE_SHIPTV_PHYLOGENTICTREE} from './modules/phylogenetictree'
 
 
 workflow {
 
-    MERGE_CONSENSUS_SEQUENCES()
+    ch_consensus_seqs = Channel
+        .fromPath(params.input)
+        .splitFasta( record: [id: true, sequence: true])
+        .collectFile( name: 'consensus_seqs.fa' ){
+        ">${it.id}\n${it.sequence}"
+    }
 
-    MSA_MAFFT(MERGE_CONSENSUS_SEQUENCES.out.ch_mergeconsensus)
+    MSA_MAFFT(ch_consensus_seqs)
 
     BUILDPHYLOGENETIC_IQTREE(MSA_MAFFT.out.ch_msa_mafft)
 
@@ -102,12 +107,11 @@ workflow {
 
     MAKEALLELES(MSA_MAFFT.out.ch_msa_mafft)
 
-    ASSIGNLINEAGES(MERGE_CONSENSUS_SEQUENCES.out.ch_mergeconsensus)
+    ASSIGNLINEAGES(ch_consensus_seqs)
 
     VISUALIZE_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree, ASSIGNLINEAGES.out.ch_lineage_report, MAKEALLELES.out.ch_alleles)
 
     VISUALIZE_SHIPTV_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree)
-
 }
 
 
