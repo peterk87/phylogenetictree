@@ -7,7 +7,10 @@ process MERGE_CONSENSUS_SEQUENCES {
     
     script:
     """
-    process_consensus.py --identifier ${params.consensus_identifier} --consensus_path ${params.consensus_path} --reference_fasta ${params.reference_fasta} --merge_consensus_sequence merge_consensus_sequence.fasta
+    process_consensus.py --identifier ${params.consensus_identifier} \\
+                         --consensus_path ${params.consensus_path} \\
+                         --filter_incomplete_sequences ${params.filter_incomplete_sequences} \\
+                         --output merge_consensus_sequence.fasta
     """
 }
 
