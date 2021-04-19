@@ -18,7 +18,7 @@ process BUILDPHYLOGENETIC_IQTREE {
 }
 
 
-process ASSIGNLINEAGES {
+process ASSIGNLINEAGES_PANGOLIN {
     
     tag { params.prefix }
 
@@ -45,6 +45,7 @@ process REROOT_PHYLOGENETICTREE {
 
     input:
     file(tree_newick)
+    file(ch_reference_fasta)
 
 
     output:
@@ -52,11 +53,11 @@ process REROOT_PHYLOGENETICTREE {
 
     script:
     """
-    nw_reroot ${tree_newick} `head -1 ${params.reference_fasta} | tr -d \">\"` > reroot_phylogenetic_tree.nwk
+    nw_reroot ${tree_newick} `head -1 $ch_reference_fasta | tr -d \">\"` > reroot_phylogenetic_tree.nwk
     """
 }
 
-process MAKEALLELES {
+process DETERMINE_SNPS {
     
     tag { params.prefix }
 
@@ -74,7 +75,7 @@ process MAKEALLELES {
     """
 }
 
-process VISUALIZE_PHYLOGENTICTREE {
+process PHYLOGENTICTREE_SNPS {
 
     tag { params.prefix }
 
@@ -90,11 +91,11 @@ process VISUALIZE_PHYLOGENTICTREE {
 
     script:
     """
-    phylogenetic_ggtree.r -n ${newick_tree} -l ${lineage_report} -a ${alleles_info}
+    phylogenetic_tree_snps.r phylogentic_tree_snps.pdf ${newick_tree}  ${alleles_info} ${lineage_report} 
     """
 }
 
-process VISUALIZE_SHIPTV_PHYLOGENTICTREE {
+process PHYLOGENTICTREE_SHIPTV {
 
     tag { params.prefix }
 

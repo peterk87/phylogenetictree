@@ -23,6 +23,7 @@ process MSA_MAFFT {
 
     input:
     file(cat_consensus_seqeuences)
+    file(ch_reference_fasta)
 
     output:
     path "msa.aln", emit: ch_msa_mafft
@@ -33,6 +34,6 @@ process MSA_MAFFT {
         --thread ${task.cpus} \\
         --6merpair \\
         --addfragments ${cat_consensus_seqeuences} \\
-        ${params.reference_fasta} > msa.aln
+        $ch_reference_fasta > msa.aln
     """
 }

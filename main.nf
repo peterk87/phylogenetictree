@@ -39,10 +39,9 @@ def summary = [:]
 if (workflow.revision) summary['Pipeline Release'] = workflow.revision
 summary['Run Name']         = custom_runName ?: workflow.runName
 // TODO nf-core: Report custom parameters here
+summary['Input']                            = params.input
 summary['Reference Name']                   = params.reference_name
 summary['Fasta Ref']                        = params.reference_fasta
-summary['Consensus Path']                   = params.consensus_path
-summary['Consensus Identifier']             = params.consensus_identifier
 summary['Max Resources']                    = "$params.max_memory memory, $params.max_cpus cpus, $params.max_time time per job"
 if (workflow.containerEngine) summary['Container'] = "$workflow.containerEngine - $workflow.container"
 summary['Output dir']       = params.outdir
@@ -69,7 +68,7 @@ log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[2m--------------------------------------------------\033[0m-"
 
 // Check the hostnames against configured profiles
-//checkHostname()
+// checkHostname()
 
 Channel.from(summary.collect{ [it.key, it.value] })
     .map { k,v -> "<dt>$k</dt><dd><samp>${v ?: '<span style=\"color:#999999;\">N/A</a>'}</samp></dd>" }
@@ -86,12 +85,15 @@ Channel.from(summary.collect{ [it.key, it.value] })
         </dl>
     """.stripIndent() }
     .set { ch_workflow_summary }
-include {MSA_MAFFT} from './modules/msa'
-include {BUILDPHYLOGENETIC_IQTREE; ASSIGNLINEAGES; REROOT_PHYLOGENETICTREE; MAKEALLELES; VISUALIZE_PHYLOGENTICTREE; VISUALIZE_SHIPTV_PHYLOGENTICTREE} from './modules/phylogenetictree'
+
+//include {MSA_MAFFT} from './modules/msa'
+include {FILTER_GISIAD_SEQUENCES} from './modules/filter_gisaid'
+//include {BUILDPHYLOGENETIC_IQTREE; ASSIGNLINEAGES_PANGOLIN; REROOT_PHYLOGENETICTREE; DETERMINE_SNPS; PHYLOGENTICTREE_SNPS; PHYLOGENTICTREE_SHIPTV} from './modules/phylogenetictree'
+include {PHYLOGENETIC}  from './phylogenetic.nf'
 
 
 workflow {
-
+  
     ch_consensus_seqs = Channel
         .fromPath(params.input)
         .splitFasta( record: [id: true, sequence: true])
@@ -99,19 +101,24 @@ workflow {
         ">${it.id}\n${it.sequence}"
     }
 
-    MSA_MAFFT(ch_consensus_seqs)
+    ch_reference_fasta = Channel.fromPath(params.reference_fasta)
 
-    BUILDPHYLOGENETIC_IQTREE(MSA_MAFFT.out.ch_msa_mafft)
+    if (params.filter_gisaid){
 
-    REROOT_PHYLOGENETICTREE(BUILDPHYLOGENETIC_IQTREE.out.ch_iqtree_newick)
+        ch_gisaid_sequence = Channel.fromPath(params.gisiad_sequences)
+    
+        ch_gisaid_metadata = Channel.fromPath(params.gisiad_metadata)
 
-    MAKEALLELES(MSA_MAFFT.out.ch_msa_mafft)
+        FILTER_GISIAD_SEQUENCES(ch_gisaid_sequence, ch_gisaid_metadata)
 
-    ASSIGNLINEAGES(ch_consensus_seqs)
+        PHYLOGENETIC(FILTER_GISIAD_SEQUENCES.out.ch_filter_gisiad_sequences, ch_reference_fasta)
+    } 
+    else{
 
-    VISUALIZE_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree, ASSIGNLINEAGES.out.ch_lineage_report, MAKEALLELES.out.ch_alleles)
+        PHYLOGENETIC(ch_consensus_seqs, ch_reference_fasta)
+    }
 
-    VISUALIZE_SHIPTV_PHYLOGENTICTREE(REROOT_PHYLOGENETICTREE.out.ch_reroot_iqtree)
+    
 }
 
 

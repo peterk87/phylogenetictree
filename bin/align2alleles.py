@@ -24,7 +24,6 @@ def write_result_matrix(variant_positions, sequences):
 # write results as a TSV file with one row per variant found in a sample
 def write_variant_list(variant_positions, counters, sequences, reference_sample):
     print("\t".join(["name", "pos", "ref_allele", "alt_allele", "samples_with_allele"]))
-
     for s in sequences:
         for i in variant_positions:
             b = s.sequence[i]
@@ -55,6 +54,8 @@ for r in fa:
 counters = list()
 for i in range(0, alen):
     counters.append(collections.Counter())
+
+
 
 #
 reference_sample = None
