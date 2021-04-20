@@ -86,9 +86,7 @@ Channel.from(summary.collect{ [it.key, it.value] })
     """.stripIndent() }
     .set { ch_workflow_summary }
 
-//include {MSA_MAFFT} from './modules/msa'
 include {FILTER_GISIAD_SEQUENCES} from './modules/filter_gisaid'
-//include {BUILDPHYLOGENETIC_IQTREE; ASSIGNLINEAGES_PANGOLIN; REROOT_PHYLOGENETICTREE; DETERMINE_SNPS; PHYLOGENTICTREE_SNPS; PHYLOGENTICTREE_SHIPTV} from './modules/phylogenetictree'
 include {PHYLOGENETIC}  from './phylogenetic.nf'
 
 

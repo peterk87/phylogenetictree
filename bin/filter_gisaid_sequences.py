@@ -26,7 +26,7 @@ def count_ambig_nt(seq: str) -> int:
 
 def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, country, region, fasta_output, metadata_output):
 
-    pangolin_lineages = {'B.1.1.306'}
+    pangolin_lineages = ['B.1.1.306']
 
     df = pd.read_table(gisiad_metadata)
     
@@ -37,11 +37,11 @@ def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, 
     strains_of_interest = set(df_subset.strain)
 
     with open(gisaid_sequences) as fin, open(fasta_output, 'w') as fout:
-        for header, seq in SimpleFastaParser(fin):
-            if header not in strains_of_interest:
+        for strains, seq in SimpleFastaParser(fin):
+            if strains not in strains_of_interest:
                 continue
-            #if lmin < len(seq) <= lmax and count_ambig_nt(seq) < xambig:
-            fout.write(f'>{header}\n{seq}\n')
+            if lmin < len(seq) <= lmax and count_ambig_nt(seq) < xambig:
+                fout.write(f'>{strains}\n{seq}\n')
 
 
 if __name__ == '__main__':
