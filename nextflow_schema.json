@@ -41,17 +41,75 @@
             "fa_icon": "fas fa-dna",
             "description": "Options for the reference genome indices used to align reads.",
             "properties": {
-                "genome": {
+                "reference_name": {
                     "type": "string",
                     "description": "Name of Reference Genome.",
                     "fa_icon": "fas fa-book",
                     "help_text": "The name of reference genome must be specified"
                 },
-                "fasta": {
+                "reference_fasta": {
                     "type": "string",
                     "fa_icon": "fas fa-font",
                     "description": "Path to FASTA genome file.",
                     "help_text": "The directory path of reference genome must be specified"
+                }
+            }
+        },
+        "gisiad_options": {
+            "title": "Filter GISAID options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for the reference genome indices used to align reads.",
+            "properties": {
+                "filter_gisaid": {
+                    "type": "boolean",
+                    "description": "Filter and find most relateds sequences in GISIAD.",
+                    "fa_icon": "fas fa-book",
+                    "help_text": ""
+                },
+                "gisiad_sequences": {
+                    "type": "string",
+                    "fa_icon": "fas fa-font",
+                    "description": "Path to FASTA GISIAD Sequences.",
+                    "help_text": "The directory path of FASTA GISIAD Sequences must be specified"
+                },
+                "gisiad_metadata": {
+                    "type": "string",
+                    "fa_icon": "fas fa-font",
+                    "description": "Path to GISIAD metadata .",
+                    "help_text": "The directory path of GISIAD metadata must be specified"
+                },
+                "country": {
+                    "type": "string",
+                    "fa_icon": "fas fa-font",
+                    "description": "Filter for specific country.",
+                    "help_text": ""
+                },
+                "region": {
+                    "type": "string",
+                    "fa_icon": "fas fa-font",
+                    "description": "Filter for specific region.",
+                    "help_text": ""
+                },
+                "sample_lineage": {
+                    "type": "string",
+                    "fa_icon": "fas fa-font",
+                    "description": "Filter for specific sample_lineage.",
+                    "help_text": ""
+                }
+            }
+        },
+        "IQTree_options": {
+            "title": "Subsitution model for building phylogenetic tree",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for the reference genome indices used to align reads.",
+            "properties": {
+                "substitution_model": {
+                    "type": "string",
+                    "description": "Subsitution model",
+                    "fa_icon": "fas fa-book",
+                    "help_text": ""
                 }
             }
         },
