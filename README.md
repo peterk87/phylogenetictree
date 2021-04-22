@@ -23,32 +23,22 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) or [`Podman`](https://podman.io/) for full pipeline reproducibility _(please only use [`Conda`](https://conda.io/miniconda.html) as a last resort; see [docs](https://nf-co.re/usage/configuration#basic-configuration-profiles))_
 
-3. Download the pipeline and test it on a minimal dataset with a single command:
+3. Download the pipeline and test it on a minimal dataset with a single command: the enviroment contains R package so running with Conda profile will be very slow, it is recommended to run with Docker profile in which mamba is used to install packages
 
     ```bash
-    nextflow run nf-core/phylogenetictree -profile test,<docker/singularity/podman/conda/institute>
+    nextflow run nf-core/phylogenetictree -profile docker
     ```
-
-    > Please check [nf-core/configs](https://github.com/nf-core/configs#documentation) to see if a custom config file to run nf-core pipelines already exists for your Institute. If so, you can simply use `-profile <institute>` in your command. This will enable either `docker` or `singularity` and set the appropriate execution settings for your local compute environment.
 
 4. Start running your own analysis!
 
     <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
-    nextflow run nf-core/phylogenetictree -profile <docker/singularity/podman/conda/institute> --input '*_R{1,2}.fastq.gz' --genome GRCh37
+    nextflow run nf-core/phylogenetictree -profile docker --filter_gisaid true
     ```
 
 See [usage docs](https://nf-co.re/phylogenetictree/usage) for all of the available options when running the pipeline.
 
-## Pipeline Summary
-
-By default, the pipeline currently performs the following:
-
-<!-- TODO nf-core: Fill in short bullet-pointed list of default steps of pipeline -->
-
-* Sequencing quality control (`FastQC`)
-* Overall pipeline run summaries (`MultiQC`)
 
 ## Documentation
 
