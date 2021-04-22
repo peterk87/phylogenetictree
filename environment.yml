@@ -26,9 +26,6 @@ dependencies:
   - pysam
   - biopython
   - snakemake
-  - bc
-  - bcftools
-  - easel
   - parallel
   - seqmagick
   - treeshrink
