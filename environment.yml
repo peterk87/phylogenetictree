@@ -1,49 +1,37 @@
 # You can use this file to create a conda environment for this pipeline:
 #   conda env create -f environment.yml
 name: nf-core-phylogenetictree
+
 channels:
   - conda-forge
   - bioconda
   - defaults
-  - smirarab
+
 dependencies:
 
-
   ## conda-forge packages
-  - conda-forge::r-base
+  - conda-forge::r-base=4.0.3
   - conda-forge::r-optparse=1.6.6
   - conda-forge::r-tidyr=1.1.0
   - conda-forge::r-tidyverse=1.3.0
+  - conda-forge::r-ggplot2=3.3.3
+  - conda-forge::r-phangorn=2.6.3
+  - conda-forge::r-readr=1.4.0
+  - conda-forge::pip=19.3.1
+  - conda-forge::numpy=1.19.1
   
   ## bioconda packages
-  - bioconda::bioconductor-ggtree
-  - bioconda::bioconductor-treeio
-  - bioconda::artic=1.2.1
+  - bioconda::bioconductor-ggtree=2.4.1
+  - bioconda::bioconductor-treeio=1.14.3
   - bioconda::mafft=7.475
   - bioconda::iqtree=2.1.2
   - bioconda::newick_utils=1.6
   - bioconda::biopython=1.78
   - bioconda::bcftools=1.12
-  - pip
-  - pysam
-  - snakemake
-  - parallel
-  - seqmagick
-  - treeshrink
-  - ucsc-faFilter
-  - ucsc-faSomeRecords
-  - ucsc-faSplit
-  - fasttree
-  - goalign
-  - gotree
-  - bc
-  - bcftools
-  - gofasta
-  - easel
-  - raxml-ng
-  - r-ggplot2
-  - r-phangorn
-  - r-readr
+  - bioconda::minimap2=2.18
+  - bioconda::pysam=0.16.0
+  - bioconda::snakemake=6.2.1
+  - bioconda:gofasta=0.0.3
   - pip:
     - dendropy>=4.4.0
     - pyvcf
