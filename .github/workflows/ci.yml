@@ -39,8 +39,8 @@ jobs:
       - name: Pull docker image
         if: ${{ !env.MATCHED_FILES }}
         run: |
-          docker pull nfcore/phylogenetictree:dev
-          docker tag nfcore/phylogenetictree:dev nfcore/phylogenetictree:dev
+          docker pull nhhaidee/phylogenetictree:dev1.0
+          docker tag nhhaidee/phylogenetictree:dev1.0 nfcore/phylogenetictree:dev1.0
 
       - name: Install Nextflow
         env:
