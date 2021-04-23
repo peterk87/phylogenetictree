@@ -26,7 +26,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 3. Download the pipeline and test it on a minimal dataset with a single command: the enviroment contains R package so running with Conda profile will be very slow, it is recommended to run with Docker profile in which mamba is used to install packages
 
     ```bash
-    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --input '/path/to/consensus_sequences/*.fasta' --reference_name ='MN908947.3' --reference_fasta = '/path/to/ref_seq/nCoV-2019.reference.fasta'
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --input '/path/to/consensus_sequences/*.fasta' --reference_name 'MN908947.3' --reference_fasta '/path/to/ref_seq/nCoV-2019.reference.fasta'
     ```
 
 4. Start running your own analysis!
