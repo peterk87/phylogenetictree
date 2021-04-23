@@ -37,7 +37,7 @@ dependencies:
   - gotree
   - bc
   - bcftools
-  - biopython>=1.76
+  - biopython:1.78
   - gofasta
   - easel
   - raxml-ng
