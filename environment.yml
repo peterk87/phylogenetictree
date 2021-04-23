@@ -21,10 +21,11 @@ dependencies:
   - bioconda::artic=1.2.1
   - bioconda::mafft=7.475
   - bioconda::iqtree=2.1.2
-  - bioconda::newick_utils
+  - bioconda::newick_utils=1.6
+  - bioconda::biopython=1.78
+  - bioconda::bcftools=1.12
   - pip
   - pysam
-  - biopython
   - snakemake
   - parallel
   - seqmagick
@@ -37,7 +38,6 @@ dependencies:
   - gotree
   - bc
   - bcftools
-  - biopython:1.78
   - gofasta
   - easel
   - raxml-ng
