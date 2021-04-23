@@ -26,7 +26,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 3. Download the pipeline and test it on a minimal dataset with a single command: the enviroment contains R package so running with Conda profile will be very slow, it is recommended to run with Docker profile in which mamba is used to install packages
 
     ```bash
-    nextflow run nhhaidee/phylogenetictree -profile docker
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0
     ```
 
 4. Start running your own analysis!
@@ -34,7 +34,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
     <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
-    nextflow run nhhaidee/phylogenetictree -profile docker --filter_gisaid true
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true
     ```
 
 See [usage docs](https://nf-co.re/phylogenetictree/usage) for all of the available options when running the pipeline.
