@@ -25,7 +25,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 3. Install nhhaidee/phylogenetic
 
-Nextflow will automatically download the latest version of pipeline. You can show the Virontus help message with usage information with:
+Nextflow will automatically download the latest version of pipeline. You can show the pipeline help message with usage information with:
 
 ```bash
 nextflow run nhhaidee/phylogenetictree --help
