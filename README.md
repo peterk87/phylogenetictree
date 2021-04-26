@@ -33,13 +33,13 @@ nextflow run nhhaidee/phylogenetic --help
 
 4. Start running your own analysis!
 
-    <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
+<!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
-    ```bash
-    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid false --reference_name  'MN908947.3' --reference_fasta '/path/to/nCoV-2019.reference.fasta' --input '/path/to/consensus/*.fasta'
-    OR
-    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true --gisiad_sequences /path/to/seq.fasta --gisiad_metadata /path/to/metadata.tsv --sample_lineage B.1.1.306 --region 'North America' --country 'Canada
-    ```
+```bash
+nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid false --reference_name  'MN908947.3' --reference_fasta '/path/to/nCoV-2019.reference.fasta' --input '/path/to/consensus/*.fasta'
+OR
+nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true --gisiad_sequences /path/to/seq.fasta --gisiad_metadata /path/to/metadata.tsv --sample_lineage B.1.1.306 --region 'North America' --country 'Canada
+```
 
 ##  Usage
 
@@ -63,11 +63,6 @@ Options for filtering sequences against GISIAD, typical command is as follow:
     --lmax                       Remove sequences that lenght > lmax
     --xambig                     Remove sequences that have number of ambiguous sequences > xambig
 
-## Documentation
-
-The nf-core/phylogenetictree pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/phylogenetictree/usage) and [output](https://nf-co.re/phylogenetictree/output).
-
-<!-- TODO nf-core: Add a brief overview of what the pipeline does and how it works -->
 
 ## Credits
 
