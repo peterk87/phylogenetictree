@@ -16,12 +16,42 @@ log.info nfcoreHeader()
 
 def helpMessage() {
     // TODO nf-core: Add to this help message with new command line parameters
-    
+    c_reset = params.monochrome_logs ? '' : "\033[0m";
+    c_bold = params.monochrome_logs ? '' : "\033[1m";
+    c_dim = params.monochrome_logs ? '' : "\033[2m";
+    c_block = params.monochrome_logs ? '' : "\033[3m";
+    c_ul = params.monochrome_logs ? '' : "\033[4m";
+    c_black = params.monochrome_logs ? '' : "\033[0;30m";
+    c_red = params.monochrome_logs ? '' : "\033[0;31m";
+    c_green = params.monochrome_logs ? '' : "\033[0;32m";
+    c_yellow = params.monochrome_logs ? '' : "\033[0;33m";
+    c_blue = params.monochrome_logs ? '' : "\033[0;34m";
+    c_purple = params.monochrome_logs ? '' : "\033[0;35m";
+    c_cyan = params.monochrome_logs ? '' : "\033[0;36m";
+    c_white = params.monochrome_logs ? '' : "\033[0;37m";
+    c_bul = c_bold + c_ul;
     log.info"""
     Usage:
-    Given consensus sequences the typical for running the pipeline is as follow
-    nextflow run 
 
+    ${c_bul}Options for nuilding phylogenetic tree of consensus sequences, typical command to run is as follow:${c_reset}
+        nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid false --reference_name  'MN908947.3' --reference_fasta '/path/to/nCoV-2019.reference.fasta' --input '/path/to/consensus/*.fasta'
+        
+        --input                      The direroty path to consensus sequences
+        --reference_name             Name of reference sequenc (MN908947.3)
+        --reference_fasta            Directory path to reference fasta file
+
+    ${c_bul}Options for filtering sequences against GISIAD, typical command is as follow:${c_reset}
+        nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true --gisiad_sequences /path/to/seq.fasta --gisiad_metadata /path/to/metadata.tsv --sample_lineage B.1.1.306 --region 'North America' --country 'Canada
+        
+        --filter_gisaid              Filter against GISIAD sequences or not (Default is false)
+        --gisiad_sequences           Directory path to GISIADS sequences (Download GISIAD sequences form gisaid.org), this is mandotory of filter_gisaid is true
+        --gisiad_metadata            Direcorty path to metadata file of GISIAD Sequences
+        --country                    Filter sequences belong to country (Canada)
+        --region                     Filter sequences belong to region (North America)
+        --sample_lineage             Lineage of sample that want to filters
+        --lmin                       Remove sequences that lenght < lmin
+        --lmax                       Remove sequences that lenght > lmax
+        --xambig                     Remove sequences that have number of ambiguous sequences > xambig
     """.stripIndent()
 }
 

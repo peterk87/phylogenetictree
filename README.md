@@ -23,22 +23,45 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) or [`Podman`](https://podman.io/) for full pipeline reproducibility _(please only use [`Conda`](https://conda.io/miniconda.html) as a last resort; see [docs](https://nf-co.re/usage/configuration#basic-configuration-profiles))_
 
-3. Download the pipeline and test it on a minimal dataset with a single command: the enviroment contains R package so running with Conda profile will be very slow, it is recommended to run with Docker profile in which mamba is used to install packages
+3. Install nhhaidee/phylogenetic
 
-    ```bash
-    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --input '/path/to/consensus_sequences/*.fasta' --reference_name 'MN908947.3' --reference_fasta '/path/to/ref_seq/nCoV-2019.reference.fasta'
-    ```
+Nextflow will automatically download the latest version of Virontus. You can show the Virontus help message with usage information with:
+
+```bash
+nextflow run nhhaidee/phylogenetic --help
+```
 
 4. Start running your own analysis!
 
     <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
-    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid false --reference_name  'MN908947.3' --reference_fasta '/path/to/nCoV-2019.reference.fasta' --input '/path/to/consensus/*.fasta'
+    OR
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true --gisiad_sequences /path/to/seq.fasta --gisiad_metadata /path/to/metadata.tsv --sample_lineage B.1.1.306 --region 'North America' --country 'Canada
     ```
 
-See [usage docs](https://nf-co.re/phylogenetictree/usage) for all of the available options when running the pipeline.
+##  Usage
 
+Options for nuilding phylogenetic tree of consensus sequences, typical command to run is as follow:
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid false --reference_name  'MN908947.3' --reference_fasta '/path/to/nCoV-2019.reference.fasta' --input '/path/to/consensus/*.fasta'
+
+    --input                      The direroty path to consensus sequences
+    --reference_name             Name of reference sequenc (MN908947.3)
+    --reference_fasta            Directory path to reference fasta file
+
+Options for filtering sequences against GISIAD, typical command is as follow:
+    nextflow run nhhaidee/phylogenetictree -with-docker nhhaidee/phylogenetic:dev1.0 --filter_gisaid true --gisiad_sequences /path/to/seq.fasta --gisiad_metadata /path/to/metadata.tsv --sample_lineage B.1.1.306 --region 'North America' --country 'Canada
+
+    --filter_gisaid              Filter against GISIAD sequences or not (Default is false)
+    --gisiad_sequences           Directory path to GISIADS sequences (Download GISIAD sequences form gisaid.org), this is mandotory of filter_gisaid is true
+    --gisiad_metadata            Direcorty path to metadata file of GISIAD Sequences
+    --country                    Filter sequences belong to country (Canada)
+    --region                     Filter sequences belong to region (North America)
+    --sample_lineage             Lineage of sample that want to filters
+    --lmin                       Remove sequences that lenght < lmin
+    --lmax                       Remove sequences that lenght > lmax
+    --xambig                     Remove sequences that have number of ambiguous sequences > xambig
 
 ## Documentation
 
