@@ -19,8 +19,9 @@ def helpMessage() {
     
     log.info"""
     Usage:
-    The typical command for running the pipeline is as follows:
-    nextflow run nf-core/phylogenetictree -profile docker
+    Given consensus sequences the typical for running the pipeline is as follow
+    nextflow run 
+
     """.stripIndent()
 }
 

@@ -19,6 +19,9 @@ process FILTER_GISIAD_SEQUENCES {
     filtered_metadata_output1 ="filtered_metadata_new_format.tsv"
     filtered_metadata_output2 ="filtered_metadata_old_format.tsv"
     """
-    filter_gisaid_sequences.py -i $ch_gisaid_sequence -m $ch_gisaid_metadata -s ${params.sample_lineage} -c ${params.country} -of $filtered_fasta_output -om1 $filtered_metadata_output1 -om2 $filtered_metadata_output2
+    filter_gisaid_sequences.py -i $ch_gisaid_sequence -m $ch_gisaid_metadata \\
+                               -s '${params.sample_lineage}' -r '${params.region}' -c '${params.country}' \\
+                               -of $filtered_fasta_output -om1 $filtered_metadata_output1 -om2 $filtered_metadata_output2 \\
+                               -lmin ${params.lmin} -lmax ${params.lmax} -x ${params.xambig}
     """
 }
