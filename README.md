@@ -25,6 +25,12 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 3. Install nhhaidee/phylogenetic
 
+Pull latest version of workflow
+
+```bash
+nextflow pull nhhaidee/phylogenetictree
+```
+
 Nextflow will automatically download the latest version of pipeline. You can show the pipeline help message with usage information with:
 
 ```bash
