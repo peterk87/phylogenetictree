@@ -31,7 +31,7 @@ Pull latest version of workflow
 nextflow pull nhhaidee/phylogenetictree
 ```
 
-Nextflow will automatically download the latest version of pipeline. You can show the pipeline help message with usage information with:
+You can show the pipeline help message with usage information with:
 
 ```bash
 nextflow run nhhaidee/phylogenetictree --help
