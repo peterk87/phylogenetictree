@@ -27,7 +27,7 @@ def count_ambig_nt(seq: str) -> int:
 
 def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, country, region, fasta_output, metadata_output1, metadata_output2):
      
-    #Old format of GISAID Metadata, it is necessary to run further analysis nextstrain locally 
+    #Old format of GISAID Metadata, it is necessary to run further analysis with nextstrain locally 
 
     column_names = ["strain", "virus", "gisaid_epi_isl", "genbank_accession", "date", "region", "country", "division", "location", "region_exposure", "country_exposure", "division_exposure", "segment", "length", "host", "age", "sex", "pangolin_lineage", "originating_lab", "submitting_lab", "authors", "url", "title", "date_submitted"]
     

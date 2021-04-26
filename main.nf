@@ -46,9 +46,9 @@ def helpMessage() {
         --filter_gisaid              Filter against GISIAD sequences or not (Default is false)
         --gisiad_sequences           Directory path to GISIADS sequences (Download GISIAD sequences form gisaid.org), this is mandotory of filter_gisaid is true
         --gisiad_metadata            Direcorty path to metadata file of GISIAD Sequences
-        --country                    Filter sequences belong to country (Canada)
-        --region                     Filter sequences belong to region (North America)
-        --sample_lineage             Lineage of sample that want to filters
+        --country                    Find sequences belong to country (Canada)
+        --region                     Find sequences belong to region (North America)
+        --sample_lineage             Lineage of sample that we want to filters
         --lmin                       Remove sequences that lenght < lmin
         --lmax                       Remove sequences that lenght > lmax
         --xambig                     Remove sequences that have number of ambiguous sequences > xambig
