@@ -19,11 +19,11 @@ def count_ambig_nt(seq: str) -> int:
 @click.option("-i", "--gisaid_sequences", type=click.Path(exists=True), required= True)    
 @click.option("-m", "--gisiad_metadata", type=click.Path(exists=True), required= True)
 @click.option("-s", "--sample_lineage", type =str, required= True)
-@click.option("-c", "--country", help="Country", required= False, type = str, default ='Canada')
+@click.option("-c", "--country", help="Country", required= False, type = str, default ='')
 @click.option("-r", "--region", help="Region", required= False, type= str, default = 'North America')
-@click.option("-of", "--fasta_output", type=click.Path(exists=False), required= False)
-@click.option("-om1", "--metadata_output1", help="New format of metadata", type=click.Path(exists=False), required= False)
-@click.option("-om2", "--metadata_output2", help="Old format of metadata",type=click.Path(exists=False), required= False)
+@click.option("-of", "--fasta_output", type=click.Path(exists=False), required= True)
+@click.option("-om1", "--metadata_output1", help="New format of metadata", type=click.Path(exists=False), required= True)
+@click.option("-om2", "--metadata_output2", help="Old format of metadata",type=click.Path(exists=False), required= True)
 
 def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, country, region, fasta_output, metadata_output1, metadata_output2):
      
@@ -46,10 +46,12 @@ def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, 
 
     strains_of_interest = set(df_subset['Virus name'])
 
+
     if len(strains_of_interest) > 0:
         with open(gisaid_sequences) as fin, open(fasta_output, 'w') as fout:
-            for strains, seq in SimpleFastaParser(fin):
 
+            for strains, seq in SimpleFastaParser(fin):
+                
                 if '|' in strains:
                     strains = strains.split('|')[0]
 
@@ -57,12 +59,17 @@ def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, 
                     continue
                 
                 if lmin < len(seq) <= lmax and count_ambig_nt(seq) < xambig:
-                    if " " in strains:
-                        strains.replace(" ","")
-                    fout.write(f'>{strains}\n{seq}\n')
+
+                    if 'hCoV-19/' in strains:
+                        strains_new = strains.replace('hCoV-19/', '')
+
+                    fout.write(f'>{strains_new}\n{seq}\n')
+
                     ########  Write  metadata to format as column_names #####
                     row = df_subset.loc[df['Virus name'] == strains]
-                    strain = row['Virus name'].values[0]
+                    strain_metadata = row['Virus name'].values[0]
+                    if 'hCoV-19/' in strain_metadata:
+                        strain_metadata = strain_metadata.replace('hCoV-19/', '')
                     virus ='ncov'
                     gisaid_epi_isl =row['Accession ID'].values[0]
                     genbank_accession ='?'
@@ -98,7 +105,7 @@ def main(lmin, lmax, xambig, gisaid_sequences, gisiad_metadata, sample_lineage, 
                     url=''
                     title=''
                     date_submitted = row['Submission date'].values[0]   
-                    row_to_append = [strain, virus, gisaid_epi_isl, genbank_accession, date, region, country, division, location, region_exposure, country_exposure, division_exposure, segment, length, host, age, sex, pangolin_lineage, originating_lab, submitting_lab, authors, url, title, date_submitted]   
+                    row_to_append = [strain_metadata, virus, gisaid_epi_isl, genbank_accession, date, region, country, division, location, region_exposure, country_exposure, division_exposure, segment, length, host, age, sex, pangolin_lineage, originating_lab, submitting_lab, authors, url, title, date_submitted]   
                     a_series = pd.Series(row_to_append, index = df_metadata.columns)
                     df_metadata = df_metadata.append(a_series, ignore_index=True)          
                 else:
